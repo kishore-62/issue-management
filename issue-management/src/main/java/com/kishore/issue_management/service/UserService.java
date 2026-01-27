@@ -5,6 +5,8 @@ import com.kishore.issue_management.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import com.kishore.issue_management.exception.UserAlreadyExistsException;
+import com.kishore.issue_management.exception.UserNotFoundException;
 
 @Service
 public class UserService {
@@ -18,13 +20,13 @@ public class UserService {
     public User createUser(User user) {
         Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
         if (existingUser.isPresent()) {
-            throw new RuntimeException("User already exists with this email");
+            throw new UserAlreadyExistsException("User already exists with this email");
         }
         return userRepository.save(user);
     }
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 }
