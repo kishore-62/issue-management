@@ -2,7 +2,11 @@ package com.kishore.issue_management.entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import com.kishore.issue_management.entity.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -23,10 +27,12 @@ public class User {
     @Email
     @Column(nullable = false, unique = true)
     private String email;
-    @NotBlank
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
-    @NotBlank
-    @Column(nullable = false)
-    private String role;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+
 }

@@ -1,4 +1,7 @@
 package com.kishore.issue_management.controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.http.ResponseEntity;
 
 import com.kishore.issue_management.entity.User;
 import com.kishore.issue_management.service.UserService;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -27,5 +31,7 @@ public class UserController {
     public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
         User user = userService.getUserByEmail(email);
         return ResponseEntity.ok(user);
+
     }
+
 }
